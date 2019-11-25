@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_task_search_inherit_form" model="ir.ui.view">
+            <field name="name">project.task.search.date.filter</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+                       <separator/>
+                       <filter name="This Week+Last Week" domain="[('date_deadline','&lt;=',context_today().strftime('%%Y-%%m-%%d')),('date_deadline','&gt;=',(context_today()-relativedelta(weeks=1)).strftime('%%Y-%%m-%%d'))]"/>
+
+                       <filter name="This Month" domain="[('date_deadline','&lt;=',context_today().strftime('%%Y-%%m-%%d')),('date_deadline','&gt;=',context_today().strftime('%%Y-%%m-01'))]"/>
+                       <filter name="This Month+Last Month" domain="[('date_deadline','&lt;=',context_today().strftime('%%Y-%%m-%%d')),('date_deadline','&gt;=',(context_today()-relativedelta(months=1)).strftime('%%Y-%%m-01'))]"/>
+                       <separator/>
+                   </xpath>
+
+            </field>
+        </record>
+</odoo>
